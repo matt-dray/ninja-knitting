@@ -31,7 +31,7 @@ map(
 )
 
 # Get a vector of all the filepaths for the newly-generated HTML files
-files <- list.files(here("docs", "html"), pattern = ".html", full.names = TRUE)
+files <- list.files(here("docs"), pattern = ".html", full.names = TRUE)
 
 # Print each HTML to PDF
 map(.x = files, .f = ~chrome_print(input = .x))
