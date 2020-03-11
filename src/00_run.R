@@ -24,7 +24,7 @@ map(
     input = here("docs", "ninja-knitting-template.Rmd"),
     params = list(name = .x),
     output_file = here(
-      "docs", "html",
+      "docs",
       paste0(tolower(str_remove_all(.x, "[:space:]|[:punct:]")), ".html")
     )
   )
@@ -34,13 +34,4 @@ map(
 files <- list.files(here("docs", "html"), pattern = ".html", full.names = TRUE)
 
 # Print each HTML to PDF
-map(
-  .x = files,
-  .f = ~chrome_print(
-    input = .x,
-    output = here(
-      "docs", "pdf",
-      paste0(str_replace(basename(.x), ".html", ".pdf"))
-    )
-  )
-)
+map(.x = files, .f = ~chrome_print(input = .x))
