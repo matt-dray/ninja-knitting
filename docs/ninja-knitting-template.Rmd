@@ -1,0 +1,98 @@
+---
+pagetitle: "Ninja knitting"
+output:
+  xaringan::moon_reader:
+    css: ["default", "styles/custom.css", "styles/custom-fonts.css"]
+    seal: false
+    lib_dir: libs
+    self_contained: true
+    nature:
+      countIncrementalSlides: false
+params: 
+  name: NULL
+
+---
+layout: true
+
+```{r setup, include=FALSE}
+# Load packages
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(icon)
+
+# Set {knit} options
+opts_chunk$set(
+  echo = FALSE, warning = FALSE, message = FALSE,
+  fig.width = 10
+)
+```
+
+```{r prep-variables, include=FALSE}
+char_data <- filter(starwars_complete, name == params$name) %>% 
+  mutate(
+    url = paste0(
+      "https://starwars.fandom.com/wiki/",
+      str_replace(name, " ", "_"
+      )
+    )
+  )
+```
+
+```{r prep-plot, include=FALSE}
+char_plot <- starwars_complete %>% 
+  ggplot(aes(x = mass, y = height)) +
+  geom_point(size = 5, shape = 20, color = "yellow") +
+  geom_point(
+    aes(x = char_data$mass, y = char_data$height),
+    size = 10, shape = 20, color = "red"
+  ) +
+  labs(x = "Mass (kg)", y = "Height (cm)") +
+  theme_classic() +
+  theme(
+    panel.background = element_rect(fill = "black"),
+    plot.background = element_rect(color = "black", fill = "black"),
+    text = element_text(family = "LibreFranklin-Light"),
+    axis.text = element_text(color = "yellow", size = 15),
+    axis.title = element_text(color = "yellow", size = 20),
+    axis.title.x = element_text(margin = margin(t = 30, r = 0, b = 0, l = 0)),
+    axis.title.y = element_text(margin = margin(t = 0, r = 30, b = 0, l = 0)),
+    axis.ticks = element_line(color = "yellow")
+  )
+```
+---
+class: middle, center
+
+# `r char_data$name`
+
+### A micro-dossier
+
+<font size=50>`r fa_r_project(colour = "yellow")` `r fa_journal_whills(colour = "yellow")`</font>
+
+Demo of iterative rendering of [{xaringan}](https://slides.yihui.org/xaringan/#1) slides with params using [{purrr}](https://purrr.tidyverse.org/)
+
+Data from [the Star Wars API](http://swapi.co/) via [{dplyr}](https://dplyr.tidyverse.org/)
+
+---
+class: middle
+
+`r char_data$name`
+
+* is a `r paste(char_data$gender, tolower(char_data$species), "from", char_data$homeworld)`
+
+* has mass `r char_data$mass` kg and height `r char_data$height` cm
+
+* has `r char_data$eye_color` eyes `r ifelse(char_data$hair_color == "none", "", paste("and", str_replace(char_data$hair_color, ", ", "/"), "hair"))`
+
+<br>
+
+Find out more on [Wookiepedia](`r char_data$url`)
+
+---
+class: middle
+
+`r paste0(pull(char_data, name), "'s size in context")`
+
+```{r plot}
+char_plot
+```
