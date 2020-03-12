@@ -1,5 +1,5 @@
 ---
-pagetitle: "Ninja knitting"
+pagetitle: "Ninja knitting with Star Wars"
 output:
   xaringan::moon_reader:
     css: ["default", "styles/custom.css", "styles/custom-fonts.css"]
@@ -21,14 +21,15 @@ library(ggplot2)
 library(knitr)
 library(icon)
 
-# Set {knit} options
+# Set chunk options
 opts_chunk$set(
   echo = FALSE, warning = FALSE, message = FALSE,
   fig.width = 10
 )
 ```
 
-```{r prep-variables, include=FALSE}
+```{r prep-url, include=FALSE}
+# Generate a link to Wookiepedia for each character
 char_data <- filter(starwars_complete, name == params$name) %>% 
   mutate(
     url = paste0(
@@ -40,6 +41,7 @@ char_data <- filter(starwars_complete, name == params$name) %>%
 ```
 
 ```{r prep-plot, include=FALSE}
+# Build a plot of mass vs height for each character
 char_plot <- starwars_complete %>% 
   ggplot(aes(x = mass, y = height)) +
   geom_point(size = 5, shape = 20, color = "yellow") +
@@ -71,7 +73,7 @@ class: middle, center
 
 Demo of iterative rendering of [{xaringan}](https://slides.yihui.org/xaringan/#1) slides with params using [{purrr}](https://purrr.tidyverse.org/)
 
-Data from [the Star Wars API](http://swapi.co/) via [{dplyr}](https://dplyr.tidyverse.org/)
+[Data source](https://dplyr.tidyverse.org/reference/starwars.html) | [Slide source](https://www.github.com/matt-dray/ninja-knitting/) | [Blog post](https://www.rostrum.blog/2020/03/12/knit-with-params/)
 
 ---
 class: middle

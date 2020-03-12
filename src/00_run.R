@@ -8,7 +8,7 @@ library(pagedown)   # chrome_print() HTML to PDF
 library(purrr)      # fancy looping
 library(rmarkdown)  # render() an RMarkdown file
 library(stringr)    # string manipulation
-library(tidyr)      # 
+library(tidyr)      # for drop_na()
 library(vctrs)      # vector wrangling
 
 # Star Wars character data from {dplyr}, only complete cases for simplicity
