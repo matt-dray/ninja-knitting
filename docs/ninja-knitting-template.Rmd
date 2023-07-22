@@ -19,7 +19,7 @@ layout: true
 library(dplyr)
 library(ggplot2)
 library(knitr)
-library(icon)
+library(fontawesome)
 
 # Set chunk options
 opts_chunk$set(
@@ -34,8 +34,7 @@ char_data <- filter(starwars_complete, name == params$name) %>%
   mutate(
     url = paste0(
       "https://starwars.fandom.com/wiki/",
-      str_replace(name, " ", "_"
-      )
+      str_replace(name, " ", "_")
     )
   )
 ```
@@ -54,7 +53,7 @@ char_plot <- starwars_complete %>%
   theme(
     panel.background = element_rect(fill = "black"),
     plot.background = element_rect(color = "black", fill = "black"),
-    text = element_text(family = "LibreFranklin-Light"),
+    text = element_text(family = "Libre Franklin"),
     axis.text = element_text(color = "yellow", size = 15),
     axis.title = element_text(color = "yellow", size = 20),
     axis.title.x = element_text(margin = margin(t = 30, r = 0, b = 0, l = 0)),
@@ -69,7 +68,7 @@ class: middle, center
 
 ### A micro-dossier
 
-<font size=50>`r fa_r_project(colour = "yellow")` `r fa_journal_whills(colour = "yellow")`</font>
+<font size=50>`r fa("r-project", fill = "yellow")` `r fa("journal-whills", fill = "yellow")`</font>
 
 Demo of iterative rendering of [{xaringan}](https://slides.yihui.org/xaringan/#1) slides with params using [{purrr}](https://purrr.tidyverse.org/)
 

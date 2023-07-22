@@ -2,20 +2,26 @@
 # {purrr} plus rmarkdown::render() for HTML and pagedown::chrome-print for PDF
 
 # Load packages
-library(dplyr)      # data wrangle
 library(here)       # relative filepaths
-library(pagedown)   # chrome_print() HTML to PDF
-library(purrr)      # fancy looping
-library(rmarkdown)  # render() an RMarkdown file
+library(dplyr)      # data wrangle
 library(stringr)    # string manipulation
 library(tidyr)      # for drop_na()
-library(vctrs)      # vector wrangling
+library(purrr)      # fancy looping
+library(rmarkdown)  # render() an RMarkdown file
+library(pagedown)   # chrome_print() HTML to PDF
 
 # Star Wars character data from {dplyr}, only complete cases for simplicity
 starwars_complete <- drop_na(starwars)
 
 # Vector of the elements we want to iterate over (Star Wars characters)
-characters <- pull(starwars_complete, name) %>% vec_sort()
+characters <- c(
+  "Anakin Skywalker", 
+  "Chewbacca",
+  "Darth Maul",
+  "Luke Skywalker",
+  "Obi-Wan Kenobi",
+  "Wedge Antilles"
+)
 
 # From the Rmd template produce an HTML per vector element
 map(
